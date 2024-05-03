@@ -1,13 +1,6 @@
 package br.com.olvictor.modelos;
 
 public class Conversor {
-    // HttpClient client = HttpClient.newHttpClient();
-
-    // HttpRequest request = HttpRequest.newBuilder()
-    //             .uri(URI.create("https://v6.exchangerate-api.com/v6/bca5c0770a25fea411050681/latest/USD"))
-    //             .build();
-
-    // HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
     private String moedaPrimaria;
     private String moedaSecundaria;
 
@@ -31,6 +24,26 @@ public class Conversor {
 
     public void setResultado (double valor){ this.valorFinal = valor; }
     public void setValorInicial (int valor){ this.valorInicial = valor; }
+
+    public void mostrarMenu(){
+        System.out.println( """
+                **********************************************
+                Seja bem vindo/a  ao conversor de moedas =]
+
+
+                1) Dólar =>> Peso Argentino
+                2) Peso argentino =>> Dólar
+                3) Dólar =>> Real Brasileiro
+                4) Real Brasileiro =>> Dólar
+                5) Dólar =>> Peso colombiano
+                6) Peso Colombiano =>> Dólar
+                7) Sair
+
+                Escolha uma opção válida:
+
+                **********************************************
+                """);
+    }
     @Override
     public String toString() {
         return "Valor : " + valorInicial + "[" +moedaPrimaria+"]" + " Corresponde ao valor final de  =>>>> " + valorFinal + "["+ moedaSecundaria +"]";

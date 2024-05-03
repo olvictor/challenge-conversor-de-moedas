@@ -1,4 +1,5 @@
 import br.com.olvictor.modelos.Conversor;
+import br.com.olvictor.services.consumoAPI;
 import br.com.olvictor.modelos.responseDTO;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -19,25 +20,12 @@ public class Main {
 
         Scanner  sc = new Scanner(System.in);
         Conversor conversor = new Conversor();
+        String apiKey = "bca5c0770a25fea411050681";
+
         boolean continuarLoop = true;
         while(continuarLoop){
-            System.out.println("""
-                **********************************************
-                Seja bem vindo/a  ao conversor de moedas =]
-
-
-                1) Dólar =>> Peso Argentino
-                2) Peso argentino =>> Dólar
-                3) Dólar =>> Real Brasileiro
-                4) Real Brasileiro =>> Dólar
-                5) Dólar =>> Peso colombiano
-                6) Peso Colombiano =>> Dólar
-                7) Sair
-
-                Escolha uma opção válida:
-
-                **********************************************
-                """);  int option = sc.nextInt();
+            conversor.mostrarMenu();
+            int option = sc.nextInt();
 
             switch (option) {
                 case 1:
@@ -76,22 +64,12 @@ public class Main {
             System.out.println("Digite o valor que deseja converter : ");
             int valor = sc.nextInt();
             conversor.setValorInicial(valor);
-
-            HttpClient client = HttpClient.newHttpClient();
-            String apiKey = "bca5c0770a25fea411050681";
-
             String  urlRequest = "https://v6.exchangerate-api.com/v6/"+ apiKey+"/pair/"+ conversor.getPrincipal()+"/"+ conversor.getMoedaSecundaria()+"/"+ valor;
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(urlRequest))
-                    .build();
-
-            HttpResponse<String> response = client
-                    .send(request, HttpResponse.BodyHandlers.ofString());
-
-            var resposta = response.body();
+            consumoAPI consumo = new consumoAPI();
 
             Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
-            responseDTO moeda = gson.fromJson(resposta, responseDTO.class);
+            responseDTO moeda = gson.fromJson(consumo.buscarDados(urlRequest), responseDTO.class);
+
             conversor.setResultado(moeda.conversion_result());
             System.out.println(conversor);
         }
