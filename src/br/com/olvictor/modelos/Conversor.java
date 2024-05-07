@@ -1,9 +1,13 @@
 package br.com.olvictor.modelos;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 public class Conversor {
     private String moedaPrimaria;
     private String moedaSecundaria;
 
+    private Date dataAtual;
     private int valorInicial;
     private Double valorFinal;
     public String getPrincipal(){
@@ -24,6 +28,14 @@ public class Conversor {
 
     public void setResultado (double valor){ this.valorFinal = valor; }
     public void setValorInicial (int valor){ this.valorInicial = valor; }
+
+    public Date getDataAtual() {
+        return dataAtual;
+    }
+
+    public void setDataAtual(Date dataAtual) {
+        this.dataAtual = dataAtual;
+    }
 
     public void mostrarMenu(){
         System.out.println( """
@@ -46,6 +58,6 @@ public class Conversor {
     }
     @Override
     public String toString() {
-        return "Valor : " + valorInicial + "[" +moedaPrimaria+"]" + " Corresponde ao valor final de  =>>>> " + valorFinal + "["+ moedaSecundaria +"]";
+        return "Valor : " + valorInicial + "[" +moedaPrimaria+"]" + " Corresponde ao valor final de  =>>>> " + valorFinal + "["+ moedaSecundaria +"]" + " na data : " + this.dataAtual;
     }
 }

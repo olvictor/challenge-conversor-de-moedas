@@ -12,6 +12,9 @@ import java.net.http.HttpClient;
 
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 public class Main {
@@ -64,6 +67,8 @@ public class Main {
             System.out.println("Digite o valor que deseja converter : ");
             int valor = sc.nextInt();
             conversor.setValorInicial(valor);
+            Date dataAtual = new Date();
+            conversor.setDataAtual(dataAtual);
             String  urlRequest = "https://v6.exchangerate-api.com/v6/"+ apiKey+"/pair/"+ conversor.getPrincipal()+"/"+ conversor.getMoedaSecundaria()+"/"+ valor;
             consumoAPI consumo = new consumoAPI();
 
@@ -72,6 +77,7 @@ public class Main {
 
             conversor.setResultado(moeda.conversion_result());
             System.out.println(conversor);
+
         }
         } catch (InputMismatchException e){
             System.out.println(e.getMessage());
